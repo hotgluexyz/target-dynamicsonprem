@@ -158,13 +158,13 @@ class DynamicOnpremSink(HotglueSink):
             if not content:
                 if url:
                     response = requests.get(url)
-                    data = base64.b64encode(response.content)
+                    data = base64.b64encode(response.content).decode()
                 else:
                     att_path = f"{self.config.get('input_path')}/{attachment.get('id')}_{att_name}"
                     with open(att_path, "rb") as attach_file:
-                        data = base64.b64encode(attach_file.read())
+                        data = base64.b64encode(attach_file.read()).decode()
             else:
-                data = attachment.get("content").encode('utf-8')
+                data = attachment.get("content")
             
             content_payload = {"attachmentContent": data}
 
